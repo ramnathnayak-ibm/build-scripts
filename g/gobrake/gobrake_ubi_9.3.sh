@@ -21,8 +21,6 @@ PACKAGE_NAME=gobrake
 PACKAGE_VERSION=${1:-v5.6.1}
 PACKAGE_URL=https://github.com/airbrake/gobrake
 
-HOME_DIR=${PWD}
-
 OS_NAME=$(grep ^PRETTY_NAME /etc/os-release | cut -d= -f2)
 
 yum install -y git gcc wget
