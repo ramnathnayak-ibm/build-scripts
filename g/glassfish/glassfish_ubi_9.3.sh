@@ -4,7 +4,7 @@
 # Package       : glassfish
 # Version       : 7.0.15
 # Source repo   : https://github.com/eclipse-ee4j/glassfish
-# Tested on     : UBI 8.7
+# Tested on     : UBI:9.3
 # Travis-Check  : True
 # Language      : Java
 # Script License: Apache License Version 2.0
