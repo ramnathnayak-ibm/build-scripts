@@ -21,6 +21,8 @@ PACKAGE_NAME=gobrake
 PACKAGE_VERSION=${1:-v5.6.1}
 PACKAGE_URL=https://github.com/airbrake/gobrake
 
+HOME_DIR=${PWD}
+
 OS_NAME=$(grep ^PRETTY_NAME /etc/os-release | cut -d= -f2)
 
 yum install -y git gcc wget
@@ -33,6 +35,7 @@ wget https://golang.org/dl/go${GO_VERSION}.linux-ppc64le.tar.gz
 tar -C /usr/local -xvzf go${GO_VERSION}.linux-ppc64le.tar.gz
 rm -rf go${GO_VERSION}.linux-ppc64le.tar.gz
 
+cd $HOME_DIR
 git clone $PACKAGE_URL
 cd $PACKAGE_NAME
 git checkout $PACKAGE_VERSION
@@ -46,7 +49,7 @@ if ! go build ./...; then
         exit 1
 fi
 
-if ! go test ./...; then
+if ! go test; then
         echo "------------------$PACKAGE_NAME:install_success_but_test_fails---------------------"
         echo "$PACKAGE_VERSION $PACKAGE_NAME"
         echo "$PACKAGE_NAME  | $PACKAGE_VERSION | $OS_NAME | GitHub | Fail |  Test_Fails"
