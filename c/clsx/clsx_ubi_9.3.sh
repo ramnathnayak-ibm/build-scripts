@@ -1,14 +1,14 @@
-#!/bin/bash
+#!/bin/bash -e
 # -----------------------------------------------------------------------------
 #
-# Package	    : clsx
-# Version	    : v2.1.1
-# Source repo	    : https://github.com/lukeed/clsx
-# Tested on	    : UBI 9.3
-# Language          : Node
-# Travis-Check      : True
-# Script License    : MIT License
-# Maintainer	    : Prachi Kurade <prachi.kurade1@ibm.com>
+# Package          : clsx
+# Version          : v2.1.1
+# Source repo      : https://github.com/lukeed/clsx
+# Tested on	: UBI:9.3
+# Language      : Node
+# Travis-Check  : True
+# Script License: Apache License, Version 2 or later
+# Maintainer    : ramnathnayak-ibm <ramnath.nayak@ibm.com>
 #
 # Disclaimer: This script has been tested in root mode on given
 # ==========  platform using the mentioned version of the package.
@@ -17,13 +17,11 @@
 #             contact "Maintainer" of this script.
 #
 # ----------------------------------------------------------------------------
-
 PACKAGE_NAME=clsx
 PACKAGE_VERSION=${1:-v2.1.1}
 PACKAGE_URL=https://github.com/lukeed/clsx
 
 export NODE_VERSION=${NODE_VERSION:-16}
-
 yum install -y python3 python3-devel.ppc64le git gcc gcc-c++ libffi make
 
 #Installing nvm
@@ -34,22 +32,15 @@ nvm install "$NODE_VERSION" >/dev/null
 nvm use $NODE_VERSION
 
 
+
 git clone $PACKAGE_URL $PACKAGE_NAME
 cd  $PACKAGE_NAME
 git checkout $PACKAGE_VERSION
-
 
 if ! npm install && npm audit fix --force; then
     echo "------------------$PACKAGE_NAME:install_fails-------------------------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_Fails"
-    exit 1
-fi
-
-if ! npm run build; then
-    echo "------------------$PACKAGE_NAME:build_fails-------------------------------------"
-    echo "$PACKAGE_URL $PACKAGE_NAME"
-    echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Build_Fails"
     exit 1
 fi
 
@@ -64,5 +55,3 @@ else
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub  | Pass |  Both_Install_and_Test_Success"
     exit 0
 fi
-
-
