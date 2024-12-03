@@ -1,13 +1,24 @@
 {
-  "maintainer": "IBM-Currency-Helper",
+  "maintainer": "ramnathnayak-ibm",
   "package_name": "glassfish",
   "github_url": "https://github.com/eclipse-ee4j/glassfish",
   "version": "7.0.15",
   "default_branch": "master",
   "build_script": "glassfish_ubi_9.3.sh",
+<<<<<<< HEAD
   "package_dir": "g/glassfish/",
   "docker_build": false,
   "*.*.*": {
+=======
+  "package_dir": "g/glassfish",
+  "docker_build": "true",
+  "docker_cmd" : "docker build -t ${package_name}:$PACKAGE_VERSION ${dir}",
+  "docker_build": "true",
+  "use_non_root_user": "false",
+  "validate_build_script": "true",
+  "*.*.*": {
+    "dir": "7.0.15_ubi9",
+>>>>>>> d72666da1b9127f19bbeebc06fe325fe1ed83bbc
     "build_script": "glassfish_ubi_9.3.sh"
   }
 }
