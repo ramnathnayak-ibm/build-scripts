@@ -31,8 +31,8 @@ yum install -y git wget java-11-openjdk-devel xz
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 
 # Install postgresql build dependencies
-yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-ppc64le/pgdg-redhat-repo-latest.noarch.rpm
-yum install -y postgresql11 postgresql11-libs postgresql11-server postgresql11-contrib
+#yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-ppc64le/pgdg-redhat-repo-latest.noarch.rpm
+#yum install -y postgresql11 postgresql11-libs postgresql11-server postgresql11-contrib
 
 # Install maven package
 wget https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
