@@ -50,7 +50,8 @@ if ! pip install -e . ; then
 fi
 
 #Test package
-if ! tox -e py3 -- -k "not test_crumb_capture_client_error and not test_continuous_profiler_auto_start_and_stop_sampled" ; then
+#tox -e py3 -- -k "not test_crumb_capture_client_error and not test_continuous_profiler_auto_start_and_stop_sampled"
+if ! pytest ; then
     echo "------------------$PACKAGE_NAME:install_success_but_test_fails---------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_success_but_test_Fails"
