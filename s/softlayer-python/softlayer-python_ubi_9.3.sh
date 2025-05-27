@@ -19,19 +19,21 @@
 # ----------------------------------------------------------------------------
 
 PACKAGE_NAME=softlayer-python
-PACKAGE_VERSION=${1:-'v6.2.3'}
+PACKAGE_VERSION=${1:-v6.2.6}
 PACKAGE_URL=https://github.com/softlayer/softlayer-python
 
-yum install -y git python3 python3-devel.ppc64le gcc gcc-c++ python3-tkinter
-yum remove -y python-chardet
-pip3 install tox
-PATH=$PATH:/usr/local/bin/
+yum install -y git python3 python3-devel python3-tkinter gcc-toolset-13 gcc-toolset-13-gcc-c++ gcc-toolset-13-gcc
 
-git clone $PACKAGE_URL $PACKAGE_NAME
+export GCC_TOOLSET_PATH=/opt/rh/gcc-toolset-13/root/usr
+export PATH=$GCC_TOOLSET_PATH/bin:$PATH
+
+pip install tox
+
+git clone $PACKAGE_URL
 cd $PACKAGE_NAME
 git checkout $PACKAGE_VERSION
 
-if ! python3 setup.py install ; then
+if ! pip install -e . ; then
     echo "------------------$PACKAGE_NAME:Install_fails-------------------------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_Fails"
