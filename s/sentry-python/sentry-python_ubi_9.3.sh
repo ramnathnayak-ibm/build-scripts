@@ -26,32 +26,35 @@ PACKAGE_NAME=sentry-python
 PACKAGE_VERSION=${1:-2.29.1}
 PACKAGE_URL=https://github.com/getsentry/sentry-python
 PACKAGE_DIR=sentry-python
-HOME_DIR=$(pwd)
+CURRENT_DIR=$(pwd)
 
-yum install -y ncurses wget git python3 python3-devel make gcc-toolset-13 gcc-toolset-13-gcc-c++ gcc-toolset-13-gcc
+yum install -y ncurses wget git python3.12 python3.12-devel python3.12-pip make gcc-toolset-13 gcc-toolset-13-gcc-c++ gcc-toolset-13-gcc
 
 export GCC_TOOLSET_PATH=/opt/rh/gcc-toolset-13/root/usr
 export PATH=$GCC_TOOLSET_PATH/bin:$PATH
+
 
 #cloning the repo
 git clone $PACKAGE_URL
 cd $PACKAGE_NAME
 git checkout $PACKAGE_VERSION
 
-pip install requests tox
-pip install -r requirements-testing.txt
+pip3.12 install --upgrade requests tox
+pip3.12 install -r requirements-testing.txt
 
 #Build package
-if ! pip install -e . ; then
+if ! pip3.12 install -e . ; then
     echo "------------------$PACKAGE_NAME:install_fails-------------------------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_Fails"
     exit 1
 fi
 
+pip3.12 install -r scripts/populate_tox/requirements.txt
+pip3.12 install -r scripts/split_tox_gh_actions/requirements.txt
+
 #Test package
-#tox -e py3 -- -k "not test_crumb_capture_client_error and not test_continuous_profiler_auto_start_and_stop_sampled"
-if ! pytest ; then
+if ! tox -e py3.12 ; then
     echo "------------------$PACKAGE_NAME:install_success_but_test_fails---------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_success_but_test_Fails"
