@@ -27,14 +27,14 @@ yum install -y git make wget python3.12 python3.12-pip python3.12-devel sqlite-d
 export GCC_TOOLSET_PATH=/opt/rh/gcc-toolset-13/root/usr
 export PATH=$GCC_TOOLSET_PATH/bin:$PATH
 
-pip3.12 install pytest tox coverage
+python3.12 -m pip install pytest tox coverage
 
 # Clone the repository
 git clone $PACKAGE_URL
 cd $PACKAGE_NAME
 git checkout $PACKAGE_VERSION
 
-if !(pip3.12 install -e .) ; then
+if !(python3.12 -m pip install -e .) ; then
     echo "------------------$PACKAGE_NAME:build_fails-------------------------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Build_Fails"
