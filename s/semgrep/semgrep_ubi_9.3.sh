@@ -99,7 +99,9 @@ git submodule update --init --recursive
 pip install freezegun python-dateutil pytest-mock appdirs
 
 eval $(opam env)
-opam install . --assume-depexts || true
+opam install -y opam-depext
+opam depext profiling -y
+opam install . --assume-depexts -y || true
 make install-deps-for-semgrep-core
 make install-deps
 make core
@@ -113,7 +115,8 @@ if ! pip install -e . ; then
 fi
 
 #Test package
-if ! make test ; then
+if ! EIO_NO_URING=1 make test
+ ; then
     echo "------------------$PACKAGE_NAME:install_success_but_test_fails---------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_success_but_test_Fails"
