@@ -7,8 +7,9 @@
   "package_dir": "s/semgrep",
   "build_script": "semgrep_ubi_9.3.sh",
   "validate_build_script": true,
-  "use_non_root_user": true,
+  "use_non_root_user": false,
   "docker_build": false,
+  "wheel_build": true,
   "v1.*.*": {
     "build_script": "semgrep_ubi_9.3.sh"
   }
