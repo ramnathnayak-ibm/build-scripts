@@ -9,6 +9,7 @@
   "validate_build_script": "true",
   "use_non_root_user": "false",
   "docker_build": false,
+  "wheel_build": true,
   "1.*.*": {
     "build_script": "partd_ubi_8.7.sh"
   }
