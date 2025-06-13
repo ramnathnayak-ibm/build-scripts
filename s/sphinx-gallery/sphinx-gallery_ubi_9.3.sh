@@ -38,7 +38,7 @@ pip install --upgrade pip
 pip install pytest pytest-cov lxml
 
 #Build package
-if ! pip install . ; then
+if ! pip install --ignore-installed . ; then
     echo "------------------$PACKAGE_NAME:install_fails-------------------------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_Fails"
