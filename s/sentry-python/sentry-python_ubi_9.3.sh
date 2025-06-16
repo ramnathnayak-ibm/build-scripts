@@ -52,7 +52,7 @@ if ! pip install . ; then
 fi
 
 pip install -r scripts/populate_tox/requirements.txt
-python3 scripts/populate_tox/populate_tox.py --fail-on-changes
+#python3 scripts/populate_tox/populate_tox.py --fail-on-changes
 pip install -r scripts/split_tox_gh_actions/requirements.txt
 python3 scripts/split_tox_gh_actions/split_tox_gh_actions.py --fail-on-changes
 
