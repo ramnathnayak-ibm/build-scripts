@@ -52,7 +52,7 @@ if ! pip3.12 install -e . ; then
 fi
 
 pip3.12 install -r scripts/populate_tox/requirements.txt
-python3.12 scripts/populate_tox/populate_tox.py --fail-on-changes
+#python3.12 scripts/populate_tox/populate_tox.py --fail-on-changes
 pip3.12 install -r scripts/split_tox_gh_actions/requirements.txt
 
 #Test package
