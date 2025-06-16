@@ -28,7 +28,7 @@ PACKAGE_URL=https://github.com/getsentry/sentry-python
 PACKAGE_DIR=sentry-python
 CURRENT_DIR=$(pwd)
 
-yum install -y ncurses wget git python3.12 python3.12-devel python3.12-pip make gcc-toolset-13 gcc-toolset-13-gcc-c++ gcc-toolset-13-gcc
+yum install -y ncurses wget git python3 python3-devel python3-pip make gcc-toolset-13 gcc-toolset-13-gcc-c++ gcc-toolset-13-gcc
 
 export GCC_TOOLSET_PATH=/opt/rh/gcc-toolset-13/root/usr
 export PATH=$GCC_TOOLSET_PATH/bin:$PATH
@@ -39,22 +39,22 @@ git clone $PACKAGE_URL
 cd $PACKAGE_NAME
 git checkout $PACKAGE_VERSION
 
-pip3.12 install --upgrade requests tox
-pip3.12 install -r requirements-testing.txt
-pip3.12 install pytest-asyncio
+pip install --upgrade requests tox
+pip install -r requirements-testing.txt
+pip install pytest-asyncio
 
 #Build package
-if ! pip3.12 install -e . ; then
+if ! pip install . ; then
     echo "------------------$PACKAGE_NAME:install_fails-------------------------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_Fails"
     exit 1
 fi
 
-pip3.12 install -r scripts/populate_tox/requirements.txt
-python3.12 scripts/populate_tox/populate_tox.py --fail-on-changes
-pip3.12 install -r scripts/split_tox_gh_actions/requirements.txt
-python3.12 scripts/split_tox_gh_actions/split_tox_gh_actions.py --fail-on-changes
+pip install -r scripts/populate_tox/requirements.txt
+python3 scripts/populate_tox/populate_tox.py --fail-on-changes
+pip install -r scripts/split_tox_gh_actions/requirements.txt
+python3 scripts/split_tox_gh_actions/split_tox_gh_actions.py --fail-on-changes
 
 #Test package
 if ! tox -e py3 -- -k "not test_async and not test_create_task and not test_gather and not test_exception and not test_task_result and not test_task_with_context and not test_span_origin and not test_ai_track_async and not test_decorator_async and not test_contextmanager_async and not test_featureflags_integration_spans_async and not test_trace_decorator_async and not test_decorator_error_async and not test_contextmanager_error_async and not test_functions_to_trace_signature_unchanged_async" ; then
