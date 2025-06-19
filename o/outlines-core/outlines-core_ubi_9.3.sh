@@ -738,10 +738,10 @@ cd $CURRENT_DIR
 git clone -b $PACKAGE_VERSION $PACKAGE_URL
 cd outlines-core
 
-pip install setuptools pytest pydantic pytest-cov transformers sentencepiece datasets
+python3.12 -m pip install setuptools pytest pydantic pytest-cov transformers sentencepiece datasets
 
 #install
-if ! (pip3.12 install -e .) ; then
+if ! (python3.12 -m pip install -e .) ; then
     echo "------------------$PACKAGE_NAME:Install_fails-------------------------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_Fails"
@@ -749,7 +749,7 @@ if ! (pip3.12 install -e .) ; then
 fi
 
 #run tests
-if !(pytest --cov=outlines_core -vv); then
+if !(pytest); then
     echo "------------------$PACKAGE_NAME:build_success_but_test_fails---------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_success_but_test_Fails"
