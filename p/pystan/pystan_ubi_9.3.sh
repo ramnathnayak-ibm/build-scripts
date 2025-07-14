@@ -73,9 +73,9 @@ git clone $PACKAGE_URL
 cd $PACKAGE_NAME
 git checkout $PACKAGE_VERSION
 
-rm -f $CURRENT_DIR/httpstan/httpstan/stanc
-cp $CURRENT_DIR/cmdstan/bin/stanc $CURRENT_DIR/httpstan/httpstan/stanc
-chmod +x $CURRENT_DIR/httpstan/httpstan/stanc
+# rm -f $CURRENT_DIR/httpstan/httpstan/stanc
+# cp $CURRENT_DIR/cmdstan/bin/stanc $CURRENT_DIR/httpstan/httpstan/stanc
+# chmod +x $CURRENT_DIR/httpstan/httpstan/stanc
 
 python3.12 -m pip install -r $CURRENT_DIR/httpstan/requirements.txt
 poetry build -v
@@ -86,7 +86,11 @@ if ! python3.12 -m pip install -e . ; then
     echo "$PACKAGE_NAME  |  $PACKAGE_URL | $PACKAGE_VERSION | GitHub | Fail |  Install_Fails"
     exit 1
 fi
- 
+
+rm -f $CURRENT_DIR/httpstan/httpstan/stanc
+cp $CURRENT_DIR/cmdstan/bin/stanc $CURRENT_DIR/httpstan/httpstan/stanc
+chmod +x $CURRENT_DIR/httpstan/httpstan/stanc 
+
 if ! pytest -s -v tests ; then
     echo "------------------$PACKAGE_NAME:Install_success_but_test_fails---------------------"
     echo "$PACKAGE_URL $PACKAGE_NAME"
