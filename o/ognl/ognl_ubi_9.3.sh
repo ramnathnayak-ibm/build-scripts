@@ -4,7 +4,7 @@
 # Package          : ognl
 # Version          : OGNL_3_4_3
 # Source repo      : https://github.com/orphan-oss/ognl.git
-# Tested on        : UBI:8.7
+# Tested on        : UBI:8.6
 # Language         : Java
 # Travis-Check     : True
 # Script License   : Apache License, Version 2 or later
